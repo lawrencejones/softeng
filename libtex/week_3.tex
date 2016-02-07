@@ -50,18 +50,18 @@ visible properties of those elements, and the relationships among them.
 This definition suggests that architecture is an abstraction, a reduction of the
 system as a whole. The external elements in the case of our software become the
 interactions between the abstracted modules used to compose our projects,
-reduced from the gritty details of each line of code into the overall shape of
-the structure.
+reduced from the minutiae of each line of code into the overall shape of the
+structure.
 
 For developers, architecture is essential to enable developers to communicate
 effectively about complex systems~\cite{anIntroductionToSoftwareArchitecture}.
 It is a reduction from the gritty details of the code into a general shape that
 each developer can retain in their heads, making use of our human ability to
 apply patterns to simplify problems. The abstraction it defines also specifies
-boundaries that aim to make the system robust to modification by isolating noise
-of each change to minimise disruption to unrelated code.
+boundaries that aim to make the system robust to modification by isolating the
+noise of each change to minimise disruption to unrelated code.
 
-As an architecture can never be perfect, we must judge it's quality on whether
+As an architecture can never be perfect, we must judge its quality on whether
 it optimises for the majority of changes made to our codebase. Adam Tornhill
 proposes we focus our attention on `hotspots'~\cite{codeAsCrimeScene} in our
 code, places where activity is highest and as a result represent the general
@@ -99,10 +99,10 @@ coupled to \texttt{lib/model.js}, then \texttt{mongoose}'s architecture is
 failing to isolate disruption from the typical change, and each of these
 hotspots is generating peripheral activity that increases the system fragility.
 
-I believe that VCS history can not only unearth important details about our
-applications architecture, it can help us escape our human biases and remove
-some of the subjectivity behind it. Martin Fowler states that `architecture
-boils down to the important stuff— whatever that
+We believe that VCS history can not only unearth important details about our
+applications architecture, it can also help us escape our human biases and
+remove some of the subjectivity behind it. Martin Fowler states that
+`architecture boils down to the important stuff— whatever that
 is'~\cite{patternsOfEnterpriseApplicationArchitecture}. Our VCS history provides
 an objective source of information that we can use to clarify discrepancies in
 developer understanding of how our systems work, and in doing so reduce the

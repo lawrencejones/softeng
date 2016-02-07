@@ -38,6 +38,7 @@ all: $(DOCUMENTS)
 		) \
 	) && \
 		mv $@ ../
+	rm -f $<
 
 clean:
 	rm -f $(DOCUMENTS) && git clean -f ./libtex
