@@ -1,6 +1,8 @@
 DOCUMENTS := \
 	week_2.pdf \
-	week_3.pdf
+	week_3.pdf \
+	week_4.pdf \
+	week_5.pdf
 
 TEX_FILES:=$(shell find . -name "*.tex" -type f)
 RESOURCE_FILES:=$(shell find ./res -type f)
@@ -29,16 +31,17 @@ all: $(DOCUMENTS)
 # companion tex file. If the pdf is not generated, then an error has occured
 # during compilation.
 #
+#
 %.pdf: %.tex refs.bib $(RESOURCE_FILES)
 	cp $< libtex/ && cd libtex && ( \
-	  pdflatex $< && \
+	  pdflatex -interaction=nonstopmode $< && \
 		bibtex $* || ( \
-			pdflatex $* && \
-			pdflatex $* \
+			pdflatex -interaction=nonstopmode $* && \
+			pdflatex -interaction=nonstopmode $* \
 		) \
 	) && \
 		mv $@ ../
-	rm -f $<
+	rm -f libtex/$<
 
 clean:
 	rm -f $(DOCUMENTS) && git clean -f ./libtex

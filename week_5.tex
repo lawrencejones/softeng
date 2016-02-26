@@ -1,0 +1,94 @@
+%----------------------------------------------------------------------------------------
+%   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\usepackage{url}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\setlength{\parskip}{0.4em}
+
+%----------------------------------------------------------------------------------------
+%   HEADING
+%----------------------------------------------------------------------------------------
+
+\newcommand{\BigO}[1]{\ensuremath{\operatorname{O}\left(#1\right)}}
+
+\title{\textsc{Software Engineering}\\Week V~- Continuous Delivery}
+\author{Lawrence Jones \{lmj112\} \  Alice Sibold \{as4712\} \\
+        Joshua Coutinho \{jrc12\}}
+
+\date{}
+\begin{document}
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%   BODY
+%----------------------------------------------------------------------------------------
+
+\textit{Git repository to be found at
+\path{https://github.com/lawrencejones/softeng-ci} }
+
+\subsection*{Question: What are the problems that a build pipeline is trying to
+solve?}
+
+Complex applications are typically deployed to a number of different
+environments. Without an automated build pipeline, these deployments are a
+manual process subject to human error and are difficult to repeat reliably. Any
+change in the deployment process will require communicating to the rest of the
+team, and it's likely that changes made will lack documentation.\cite{bsdp}.
+Relying on developers to manually verify their code can lead to each developer
+verifying different things, and it becomes difficult to enforce static analysis
+and testing that a team would ideally have run on each change to their project,
+in each of the environments it will be deployed to.\cite{methodsntools}
+
+Build pipelines can remove the uncertainty from deployment while providing rapid
+feedback to each change a developer makes. By enforcing that each change passes
+the CI steps before being pushed into the main project branch, we can avoid
+monolithic commits that are symptomatic of an unstructured build process,
+avoiding the process loss they entail with several back and forths between QA
+and development\cite{cimartinfowler}.
+
+Having an entire team buy into a build pipeline ensures that everyone can
+benefit from maintaining the automated procedure, removing the need for each
+developer to relearn the process each change. Spending the time to ensure the
+automated process is solid- with parallel build steps and good coverage- then
+becomes worthwhile.
+
+Ideally a good pipeline will deploy to each environment as part of the standard
+build. This removes a large class of errors where code will work on a developers
+machine but break in production, adding confidence that deploying this change
+won't cause issues. Testing code with a view for compatibility can be difficult
+and laborious when a manual process, while pipelines can facilitate a clear
+strategy for testing code against each target platform.
+
+These characteristics of a pipeline provide a system with increased robustness
+to change, and see an increase in developer productivity by tightening the
+feedback loop between making a change and seeing its effects\cite{whitepaper}.
+
+%----------------------------------------------------------------------------------------
+%BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{99}
+
+\bibitem{whitepaper} \emph{The Deployment Production Line} \\
+	\path{http://continuousdelivery.com/wp-content/uploads/2011/04/deployment_production_line.pdf}
+\bibitem{cimartinfowler} \emph{On Continuous Integration, Martin Fowler}
+	\path{http://www.martinfowler.com/articles/continuousIntegration.html}
+\bibitem{bsdp}\emph{Building a Software Deployment Pipeline}
+	\path{http://lethain.com/building-a-software-deployment-pipeline/}
+\bibitem{methodsntools} \emph{Continuous Delivery using Build Pipelines}
+\path{http://www.methodsandtools.com/archive/archive.php?id=121}
+\end{thebibliography}
+
+\end{document}
