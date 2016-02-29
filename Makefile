@@ -2,7 +2,8 @@ DOCUMENTS := \
 	week_2.pdf \
 	week_3.pdf \
 	week_4.pdf \
-	week_5.pdf
+	week_5.pdf \
+	week_6.pdf
 
 TEX_FILES:=$(shell find . -name "*.tex" -type f)
 RESOURCE_FILES:=$(shell find ./res -type f)

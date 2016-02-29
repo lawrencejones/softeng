@@ -1,0 +1,102 @@
+%----------------------------------------------------------------------------------------
+%   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\usepackage{url}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\setlength{\parskip}{0.4em}
+
+%----------------------------------------------------------------------------------------
+%   HEADING
+%----------------------------------------------------------------------------------------
+
+\newcommand{\BigO}[1]{\ensuremath{\operatorname{O}\left(#1\right)}}
+
+\title{\textsc{Software Engineering}\\Static Analysis}
+\author{Lawrence Jones \{lmj112\} \  Alice Sibold \{as4712\} \\
+        Joshua Coutinho \{jrc12\}}
+
+\date{}
+\begin{document}
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%   BODY
+%----------------------------------------------------------------------------------------
+
+\textit{Git repository to be found at
+\path{https://gitlab.doc.ic.ac.uk/as4712/softeng-sa}}
+
+\subsection*{Question: How can static analysis techniques be most effectively
+integrated in a continuous delivery development process?}
+
+Static analysis is the process of analysing source code, or a binary, for
+potential issues, \textit{without executing the program}. This is a proven
+technique which, despite some limitations\cite{sethi15}\cite{anderson08}, is
+actively used in production. Once such tool is
+\href{http://fbinfer.com/}{INFER}, which is being used internally at Facebook.
+
+Using static analysis tools in a continuous integreation environment has two
+key challenges\cite{calcagno15}; the first is developer confidence. Facebook
+calls this the \textit{"Social challenge"}, where developers need to trust that
+the tool isn't reporting bugs that aren't really there. False positives ensure
+users tune out the results and reduce confidence in the tooling, meaning true
+issues are likely to be ignored.
+
+Conversely, if the analysis regularly reports \textbf{false negatives}, i.e.
+misses real bugs in the program, developers will lose faith in the value of the
+tool, as problems must be found manually anyway.
+
+Tuning the sensitivity for the right balance of false positive/negatives, so
+that most true bugs are found within the program while keeping a low level of
+false negative noise is crucial, and a task that can benefit from constant
+attention. Having an internal development team responsible for static analysis
+tooling can help achieve this balance\cite{calcagno15}, as well as providing a
+communication point for any concerns developers might have.
+
+The second concern is to preserve the developers' workflow as much as possible,
+making the tooling a natural extension of developer habits instead on an
+intrusive extra burden.
+
+Facebook did this by integrating the verification stage into the code review
+process, whereby any source code diffs up for peer review must pass the static
+analysis, on top of unit tests. This is made possible by aggressively caching
+analysis results to enable incremental scans, reducing the time to run the tools
+to about 10m for each new change, a time that Facebook report is interactive
+enough to be useful to developers in their workflow.
+
+Nightly full non-cached analysis is performed to check for any bugs that might
+have been missed, striking a balance between providing value in a lightweight
+form for developers as they make changes, while ensuring complete coverage of
+the code.
+
+%----------------------------------------------------------------------------------------
+%BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{99}
+
+\bibitem{sethi15} \emph{Understanding Strengths and Limitations of Static
+  Analysis Security Testing (SAST)} \\
+  \path{https://labs.securitycompass.com/appsec-2/understanding-strengths-and-limitations-of-static-analysis-security-testing-sast/}
+\bibitem{anderson08} \emph{The Use and Limitations of Static-Analysis Tools to
+  Improve Software Quality} \\
+  \path{https://buildsecurityin.us-cert.gov/resources/crosstalk-series/the-use-and-limitations-of-static-analysis-tools-to-improve-software-quality}
+\bibitem{calcagno15} \emph{Moving Fast with Software Verification} \\
+  \path{https://
+  research.facebook.com/publications/422671501231772/moving-fast-with-software-verification/}
+  \end{thebibliography}
+
+\end{document}
+
