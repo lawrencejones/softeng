@@ -8,7 +8,7 @@ DOCUMENTS := \
 TEX_FILES:=$(shell find . -name "*.tex" -type f)
 RESOURCE_FILES:=$(shell find ./res -type f)
 
-all: $(DOCUMENTS)
+all: report.pdf
 
 # Why is this command so complex?
 #
@@ -39,7 +39,7 @@ all: $(DOCUMENTS)
 		bibtex $* || ( \
 			pdflatex -interaction=nonstopmode $* && \
 			pdflatex -interaction=nonstopmode $* \
-		) \
+		) | grep -E "^|failed" \
 	) && \
 		mv $@ ../
 	rm -f libtex/$<
