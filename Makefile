@@ -35,13 +35,11 @@ all: report.pdf
 #
 %.pdf: %.tex refs.bib $(RESOURCE_FILES)
 	cp $< libtex/ && cd libtex && ( \
-	  pdflatex -interaction=nonstopmode $< && \
-		bibtex $* || ( \
-			pdflatex -interaction=nonstopmode $* && \
-			pdflatex -interaction=nonstopmode $* \
-		) | grep -E "^|failed" \
-	) && \
-		mv $@ ../
+	  pdflatex -interaction=nonstopmode $<; \
+		bibtex $*; \
+		pdflatex -interaction=nonstopmode $<; \
+		pdflatex -interaction=nonstopmode $<  \
+		) | grep -E "^|failed" && mv $@ ../
 	rm -f libtex/$<
 
 clean:

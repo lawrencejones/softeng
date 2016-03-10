@@ -35,8 +35,6 @@
 to ongoing development) and relate it back to ideas presented in the course.}
 \\
 
-Big ball of mud\cite{bigBallOfMud}
-
 GoCardless is a FinTech startup based in Angel, London. They provide an API that
 instruments DirectDebit payment networks to pull money between bank accounts,
 and have been doing so since 2011. Their main product is their API, making
@@ -59,7 +57,7 @@ the course of that transformation.
 
 \section{Conception}
 
-Developers at GC tackle new features with a ‘kick off' meeting, consisting of
+Developers at GC tackle new features with a `kick off' meeting, consisting of
 the core development team working on the feature and any other essentially
 involved people from around the company. The aim is to discuss the critical (or
 happy) path of the feature, describing the experience for the standard user.
@@ -67,30 +65,37 @@ During this process any issues can be raised while the people with domain
 knowledge are present, allowing the plan to adjust to immediate feedback before
 any real work is done.
 
-Over the next couple of days the team of developers will produce a ‘scoping
-document', detailing their implementation plan and capturing the results of
-research around the feature. This document is usually written in some sort of
-collaborative environment (Google Docs, Dropbox Paper, etc.) with a link being
-shared directly to anyone involved in the project, and made available to entire
-company.
+Over the next couple of days the team of developers will produce a `scoping
+document' (Figure~\ref{fig:scoping}), detailing their implementation plan
+and capturing the results of research around the feature. This document is
+usually written in some sort of collaborative environment (Google Docs, Dropbox
+Paper, etc.) with a link being shared directly to anyone involved in the
+project, and made available to entire company.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{lib/res/scoping.png}
+\caption{\label{fig:scoping}\textit{Example scoping document- mix of technical with
+free-form content, including collaborative comments}}
+\end{figure}
 
 Working with such visibility enables several operational benefits. Foremost,
 rarely does this process produce solutions that differ wildly from the actual
 requirements. Developers often lack context when they begin work, so having
 others in the company who understand the problem on hand during the design
 process means misunderstandings can be easily corrected early, with minimal
-cost\cite{costOfChangeEssay}.
+cost~\cite{costOfChangeEssay}.
 
 Secondly, opening this document to the entire company increases awareness of
 what the development team are working on. For non-developers, this translates
 into an understanding of how a large part of the company are spending their
 time, and how that work contributes to the overall company's goal. A key
 component of any high functioning team is accountability within the
-sub-teams\cite{fiveDysfunctions}, and this only comes when teams have an
+sub-teams~\cite{fiveDysfunctions}, and this only comes when teams have an
 understanding of what others are working on.
 
 For developers, this increased visibility means a direct reduction in the
-projects bus, or truck factor\cite{truckFactor}. When other developers can share
+projects bus, or truck factor~\cite{truckFactor}. When other developers can share
 in the design process they learn crucial information that will help them
 troubleshoot this code when problems arise in the future. On top of this, any
 developers who conceive an alternative approach or predict problems with the
@@ -144,19 +149,26 @@ communication. That Amazon and GoCardless both use such tools, representing
 fast-moving environments striving for optimal efficiency, suggests that
 technical writing may be less restrictive than it at first seems.
 
-\section{Testing & Continuous Delivery}
+\section{Testing \& Continuous Delivery}
 
 Amazon recently released tools that allow developers to automate code deployment
 to AWS machines via the AWS console. Specifically, the two tools AWS CodeDeploy
 and CodePipeline are continuous delivery instruments, and bring advanced
 deployment tools within reach of your standard developer.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{lib/res/code_pipeline.png}
+\caption{\label{fig:scoping}\textit{Diagram from Amazon webpage on
+CodePipeline}}
+\end{figure}
+
 While this is the first time tools like this have been offered by Amazon
 commercially, the business has been making use of internal tools for these
 purposes for many years. Amazon's platform is built on top of micro-services;
 whenever anyone visits an Amazon webpage up to 150 services are invoked for the
 page render. As one of the first companies to embrace micro-services, Amazon
-tackled novel growing pains as they build out their architecture from the old
+tackled novel growing pains as they built out their architecture from the old
 monolith.
 
 One of the most pressing of these pains was how much developer time was sunk
@@ -170,15 +182,17 @@ bespoke deployment process for their service. Werner Vogels describes the
 problem\dots
 
 \begin{displayquote}
-Each team took on full ownership of the development and operation of a
-single service… teams were able to quickly produce new features, but their
-deployment process soon became a bottleneck. Manual deployment steps slowed down
-releases and introduced bugs caused by human error. Many teams started to fully
-automate their deployments to fix this, but that was not as simple as it first
-appeared.
 
-\textit{Excerpt From: The Story of Apollo - Amazon's Deployment
-Engine~\cite{theStoryOfApollo}}
+  Each team took on full ownership of the development and operation of a single
+  service\dots teams were able to quickly produce new features, but their deployment
+  process soon became a bottleneck. Manual deployment steps slowed down releases
+  and introduced bugs caused by human error. Many teams started to fully
+  automate their deployments to fix this, but that was not as simple as it first
+  appeared.
+
+  \textit{Excerpt From: The Story of Apollo - Amazon's Deployment
+  Engine~\cite{theStoryOfApollo}}
+
 \end{displayquote}
 
 These problems led directly to the creation of Amazon's internal deployment
@@ -193,7 +207,7 @@ environment, spinning up servers to match the application's scaling profile, and
 configuration changes could be made on the fly without taking down the service.
 This capability was far beyond any of the custom shell scripts teams had written
 to deploy their apps, as Apollo benefitted from a dedicated team working full
-time on developing it's facilities and integrating the tool into Amazon's
+time on developing its facilities and integrating the tool into Amazon's
 infrastructure. This immediately reduced the amount of time developers spent
 debugging their deployments.
 
@@ -253,25 +267,25 @@ including setup and teardown, without relying on any specialised hardware or
 parallelisation. This minimises the cost per build while preserving rapid
 feedback to developers.
 
-GoCardless has a far more flexible process, most likely encouraged by the use of
-Ruby of Rails as the platform's stack. Rails uses a framework called
-ActiveRecord~\cite{activeRecord} as a database ORM, with many of the core Rails
-features tightly coupled to this interface. ActiveRecord abstracts away from the
-underlying database to provide a query interface that can be called from Ruby
-code, wrapping the results of each database query in appropriate Ruby classes.
-While this interface provides valuable syntactic sugar that improves the
-development experience when interacting with database records, the coupling of
-code to ActiveRecord means unit tests implicitly rely upon an active database
-connection.
+GoCardless has a far more flexible process, encouraged by the use of Ruby on
+Rails as the company's stack. Rails uses a framework called
+\texttt{ActiveRecord}~\cite{activeRecord} as a database ORM, with many core
+Rails features tightly coupled to this interface. \texttt{ActiveRecord}
+abstracts away from the underlying database to provide a query interface that
+can be called from Ruby code, wrapping the results of each database query in
+appropriate Ruby classes.  While this interface provides valuable syntactic
+sugar that improves the development experience when interacting with database
+records, the coupling of code to \texttt{ActiveRecord} means unit tests
+implicitly rely upon an active database connection.
 
-Unit tests that hit ActiveRecord have now broken the ‘repeatable' quality that
+Unit tests that hit \texttt{ActiveRecord} have now broken the `repeatable' quality that
 states tests should run in any environment, regardless of configuration. A
 standard practise for writing tests in a Rails environment will make use of gems
-such as FactoryGirl~\cite{factoryGirl} to create mock database records before
-each test run. This practise can be anything but fast, and without due care test
-suite running time can balloon dramatically. Writing tests in this fashion
-sacrifices some speed and resilience of idiomatic unit tests, but gains some
-benefits…
+such as \texttt{FactoryGirl}~\cite{factoryGirl} to create mock database records
+before each test run. This practise can be anything but fast, and without due
+care test suite running time can balloon dramatically. Writing tests in this
+fashion sacrifices some speed and resilience of idiomatic unit tests, but gains
+some benefits\dots
 
 \begin{displayquote}
 
@@ -286,14 +300,120 @@ benefits…
   when the system grows, as the cost increases exponentially with growth and you
   end up with $>5m$ builds, which can become a waste of developer time. \\
 
-  \textbf{Isaac Seymour} - Backend developer at GoCardless
+  \textit{Isaac Seymour - Backend developer at GoCardless}
 
 \end{displayquote}
 
-So if this becomes a such a problem, then why are GoCardless willing to pay it?
+So if this becomes a such a problem, then why are GoCardless willing to suffer it?
 \texttt{payments-service}, the core system behind the GoCardless API, is a Rails app
 consisting of over 150k lines of Ruby code. Surely this problem should have
-crossed the line between maintainabili
+crossed the line at which point build times become prohibitively expensive?
+
+Unfortunately, \texttt{payments-service} has a few characteristics that make it
+more difficult than your standard Rails app to test in isolation. The first is
+due to defensive programming- being a payments service means protecting against
+any software error that could cause bad accounting, including race conditions.
+GoCardless engineers decided early on to rely on the database layer (in this
+instance, PostgreSQL) to provide atomicity guarantees, and so code often relies
+on \texttt{ActiveRecord} passing up database exceptions, such as constrint
+violations.
+
+Mocking how \texttt{ActiveRecord} handles the underlying database in a unit test
+is patently ridiculous. What is meant to be test code tightly focused on the
+unit it is testing becomes a game of how well the developer knows
+\texttt{ActiveRecord} internals, and is inherently fragile. Mocking a
+constraint violations can expose the risk that unit tests will pass (simulating
+that constraint being violated) without the constraint ever being encoded into
+the database.
+
+When your app moves millions of pounds daily, even that minimal risk cannot be
+tolerated. Zach Holman states\dots
+
+\begin{displayquote}
+
+  `We can make good tests run fast but we can't make fast tests be good.'
+
+  So start with a good foundation: have good tests. Don't skimp out on this,
+  because it impacts everything else down the line. \\
+
+  \textit{Zach Holman - How to Deploy Software~\cite{howToDeploySoftware}}
+
+\end{displayquote}
+
+Here, GoCardless clearly opted to write good tests over the faster, more brittle
+kind they felt were an inevitability had they mocked out the database. But Zach
+suggests there is a possibility to push the envelope on how far we can run
+with these tests, and indeed GoCardless have done just that.
+
+There are certain optimisations you can make to unit tests that touch the
+database, especially when the test code reuses key models. PostgreSQL provides
+some hardcore features that allow for tuning a test database for maximal
+performance, and wrapping nested \texttt{context} blocks in \texttt{RSpec} unit
+tests with database transactions allows fixtures to incur a write cost only once
+for each spec file they are used in, immediately reducing the running time
+of database heavy tests.
+
+While useful, these sort of optimisations only have so much mileage. Zach goes
+on to say~\cite{howToDeploySoftware} that test suites should take somewhere in
+the range of 5-10m to complete. The simplest way to achieve this is by throwing
+more hardware at the problem. The cost of additional infrastructure can be
+easily justified in the time it saves for developers when checking in a new
+change, and GoCardless tackles this problem by sharding the unit tests across 5
+containers when pushing to CircleCI, their CI provider. This brings test suite
+running time down to approximately 10m for \texttt{payments-service} as can be
+seen in Figure~\ref{fig:circle}, a duration that GoCardless engineers feel is
+sufficiently fast.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{lib/res/circle.png}
+\caption{\label{fig:circle}\textit{\texttt{payments-service} tests running on
+CircleCI with 5 workers}}
+\end{figure}
+
+One might ask how far this can scale, and for this Stripe provides an excellent
+case study. Built on Rails, just as GoCardless, Stripe have achieved three
+minute build times from the natural conclusion of this parallelisation, by
+creating their own test runner framework that \texttt{fork}s extensively on a
+high powered Amazon EC instance. Stripe's Nelson Elhage says\dots
+
+\begin{displayquote}
+
+  The decision to invest effort in our own testing infrastructure wasn't
+  necessarily obvious: we could have continued to use a third-party solution.
+  However, spending a comparatively small amount of effort allowed the rest of our
+  engineering organization to move significantly faster—and with more confidence.
+  I'm also optimistic this test runner will continue to scale with us and support
+  our growth for several years to come.\\
+
+  \textit{Nelson Elhage - Running three hours of Ruby tests in under three
+  minutes~\cite{stripeDistributedTesting}}
+
+\end{displayquote}
+
+Clearly Stripe figured out how to make their `good tests' run fast, and have
+confidence they will continue to do so in future.
+
+\[*\]
+
+The comparison of Amazon and GoCardless testing ethos highlights some major
+differences in organisational structure. Amazon with their many services cannot
+afford to special case each team, nor as their Frugality principle suggests,
+would they want to. GoCardless as a start-up has much more flexibility in this
+regard, and can manage each project on its own basis. Indeed, specifying a
+general rule for everyone when your company is only four years old is probably
+an unwise move.
+
+Regardless of their differences in size and technical ethos, Amazon and
+GoCardless both exhibit key qualities of highly effective companies. Both strive
+for pragmatism in their development practises, and favour a highly technical
+dialogue that works hard to include non-technical staff in the discussion.
+
+Each follow Agile principles, but do so on their own terms. It's highly unusual
+to find either adopting a procedure that they haven't questioned the value of
+\textbf{within the context of their own business}, which can be refreshing in an
+industry that enjoys talking in absolutes.
+
 
 %----------------------------------------------------------------------------------------
 %   BIBLIOGRAPHY
@@ -301,7 +421,7 @@ crossed the line between maintainabili
 
 \medskip
 \bibliography{lib/refs}{}
-\bibliographystyle{unsrt}
+\bibliographystyle{plain}
 \newpage
 
 \end{document}
