@@ -148,9 +148,9 @@ technical writing may be less restrictive than it at first seems.
 \section{Testing \& Continuous Delivery}
 
 Amazon recently released tools that allow developers to automate code deployment
-to AWS machines via the AWS console. Specifically, the two tools AWS CodeDeploy
-and CodePipeline are continuous delivery instruments, and bring advanced
-deployment tools within reach of your standard developer.
+to AWS machines via the AWS console. The two tools AWS CodeDeploy and
+CodePipeline are continuous delivery instruments, and bring advanced deployment
+tools within reach of your standard developer.
 
 \begin{figure}
 \centering
@@ -162,17 +162,16 @@ CodePipeline}}
 While this is the first time tools like this have been offered by Amazon
 commercially, the business has been making use of internal tools for these
 purposes for many years. Amazon's platform is built on top of micro-services;
-whenever anyone visits an Amazon webpage up to 150 services are invoked for the
-page render. As one of the first companies to embrace micro-services, Amazon
-tackled novel growing pains as they built out their architecture from the old
-monolith.
+visiting an Amazon webpage can invoke up to 150 services for the render. As one
+of the first companies to embrace micro-services, Amazon tackled novel growing
+pains as they built out their architecture from the old monolith.
 
 One of the most pressing of these pains was how much developer time was sunk
 into deployments. Now Amazon was split into many services, each team had settled
 on a slightly different deployment strategy. When deployment means
 \texttt{ssh}'ing into a single box, this might not cause too much frustration,
 but Amazon teams were looking to deploy to fleets of hundreds of servers with
-zero-downtime requirements. Lacking a unified toolchain for deployments meant
+zero-downtime requirements. Lacking a unified tool-chain for deployments meant
 each team would spend a large amount of time re-inventing the wheel, producing a
 bespoke deployment process for their service. Werner Vogels describes the
 problem\dots
@@ -197,15 +196,12 @@ Line'~\cite{deploymentProductionLine} states some qualities that a good
 deployment system should demonstrate, and Apollo solved many of these.
 
 The first is automating deployments. One of the biggest advantages Apollo could
-offer was full, intelligent automated deployment of services, across a fleet of
-AWS servers. Once configured, Apollo could deploy code to any required
-environment, spinning up servers to match the application's scaling profile, and
-configuration changes could be made on the fly without taking down the service.
-This capability was far beyond any of the custom shell scripts teams had written
-to deploy their apps, as Apollo benefitted from a dedicated team working full
-time on developing its facilities and integrating the tool into Amazon's
-infrastructure. This immediately reduced the amount of time developers spent
-debugging their deployments.
+offer was intelligent automated deployment of services, across a fleet of AWS
+servers. Once configured, Apollo could deploy code to any environment, spinning
+up servers to match the application's scaling profile, and configuration changes
+could be made on the fly without taking down the service. This was light-years
+ahead of the custom shell scripts teams had written to deploy their apps, with
+Apollo benefiting from a team working full-time on developing its facilities.
 
 Humble also states that a deployment tool chain must ensure the same artifacts
 are deployed to every environment. Each service at Amazon depends on hundreds of
@@ -263,38 +259,33 @@ including setup and teardown, without relying on any specialised hardware or
 parallelisation. This minimises the cost per build while preserving rapid
 feedback to developers.
 
-GoCardless has a far more flexible process, encouraged by the use of Ruby on
-Rails as the company's stack. Rails uses a framework called
-\texttt{ActiveRecord}~\cite{activeRecord} as a database ORM, with many core
-Rails features tightly coupled to this interface. \texttt{ActiveRecord}
-abstracts away from the underlying database to provide a query interface that
-can be called from Ruby code, wrapping the results of each database query in
-appropriate Ruby classes.  While this interface provides valuable syntactic
-sugar that improves the development experience when interacting with database
-records, the coupling of code to \texttt{ActiveRecord} means unit tests
-implicitly rely upon an active database connection.
+GoCardless has a more flexible process, encouraged by the choice of Ruby as the
+company's language. Rails uses a framework called
+\texttt{ActiveRecord}~\cite{activeRecord} as a database ORM, abstracting away
+from the underlying database to provide an interface that can be called from
+Ruby code. While a key to Rails development, using \texttt{ActiveRecord} means
+your code implicitly relies upon an active database connection.
 
-Unit tests that hit \texttt{ActiveRecord} have now broken the `repeatable'
-quality that states tests should run in any environment, regardless of
-configuration. A standard practise for writing tests in a Rails environment will
-make use of gems such as \texttt{FactoryGirl}~\cite{factoryGirl} to create mock
-database records before each test run. This practise can be anything but fast,
-and without due care test suite running time can balloon dramatically. Writing
-tests in this fashion sacrifices some speed and resilience of idiomatic unit
-tests, but gains some benefits\dots
+Unit tests that hit \texttt{ActiveRecord} now break the `repeatable' quality
+that states tests should run in any environment. Standard practise for writing
+tests in a Rails environment will use \texttt{gems} such as
+\texttt{FactoryGirl}~\cite{factoryGirl} to create mock database records before
+each test run. This practise can be anything but fast, and without due care test
+suite running time can balloon. Writing tests in this fashion sacrifices some
+speed and resilience of idiomatic unit tests, but has its benefits\dots
 
 \begin{displayquote}
 
-  Writing semi-integration in place of unit tests is just easier than the
-  alternative. When the code under test is coupled so tightly with
-  \texttt{ActiveRecord} and some of the features like database transactions,
-  it's much quicker to not put the work in to build reusable mocks and decompose
-  things so they can be tested without hitting the database.
+  Writing semi-integration instead of unit tests is just easier than the
+  alternative. When the code under test relies on \texttt{ActiveRecord} and some
+  features like database transactions, it's much quicker to not put the work
+  into building reusable mocks and decomposing things so they can be tested
+  without hitting the database.
 
   The trade off is very cheap when the system is small- you don't have many
   tests so even if each one is super-slow it doesn't matter. The problem appears
-  when the system grows, as the cost increases exponentially with growth and you
-  end up with $>5m$ builds, which can become a waste of developer time. \\
+  when the system grows, as the cost increases exponentially and you end up with
+  $>5m$ builds, which can become a waste of developer time. \\
 
   \textit{Isaac Seymour - Backend developer at GoCardless}
 
@@ -307,20 +298,18 @@ crossed the line at which point build times become prohibitively expensive?
 
 Unfortunately, \texttt{payments-service} has a few characteristics that make it
 more difficult than your standard Rails app to test in isolation. The first is
-due to defensive programming- being a payments service means protecting against
-any software error that could cause bad accounting, including race conditions.
-GoCardless engineers decided early on to rely on the database layer (in this
-instance, PostgreSQL) to provide atomicity guarantees, and so code often relies
-on \texttt{ActiveRecord} passing up database exceptions, such as constrint
-violations.
+due to defensive programming- working with payments means protecting against
+software errors that can cause bad accounting, including race conditions.
+GoCardless engineers decided early on to rely on the database layer to provide
+atomicity guarantees, and so code often relies on \texttt{ActiveRecord} passing
+up database exceptions, such as constrint violations.
 
 Mocking how \texttt{ActiveRecord} handles the underlying database in a unit test
-is patently ridiculous. What is meant to be test code tightly focused on the
-unit it is testing becomes a game of how well the developer knows
-\texttt{ActiveRecord} internals, and is inherently fragile. Mocking a
-constraint violations can expose the risk that unit tests will pass (simulating
-that constraint being violated) without the constraint ever being encoded into
-the database.
+is unfeasible. Test code becomes a game of how well the developer knows
+\texttt{ActiveRecord} internals, and is inherently fragile. Mocking constraint
+violations can expose the risk that unit tests will pass (simulating that
+constraint being violated) without the constraint ever being encoded into the
+database.
 
 When your app moves millions of pounds daily, even that minimal risk cannot be
 tolerated. Zach Holman states\dots
@@ -344,15 +333,13 @@ maximal testing performance, you can immediately reduce the running time of
 database heavy tests.
 
 While useful, these sort of optimisations only have so much mileage. Zach goes
-on to say~\cite{howToDeploySoftware} that test suites should take somewhere in
-the range of 5-10m to complete. The simplest way to achieve this is by throwing
-more hardware at the problem. The cost of additional infrastructure can be
-easily justified in the time it saves for developers when checking in a new
-change, and GoCardless tackles this problem by sharding the unit tests across 5
-containers when pushing to CircleCI, their CI provider. This brings test suite
-running time down to approximately 10m for \texttt{payments-service} as can be
-seen in Figure~\ref{fig:circle}, a duration that GoCardless engineers feel is
-sufficiently fast.
+on to say~\cite{howToDeploySoftware} that test suites should take run in the
+range of 5-10m, and throwing more hardware at the problem can be a viable
+solution. The cost of additional infrastructure can be easily justified in the
+time it saves for developers when checking in a new change, and GoCardless
+tackles this problem by sharding the unit tests on their CI provider. This
+brings test suite running time down to 10m for \texttt{payments-service}, as can
+be seen in Figure~\ref{fig:circle}.
 
 \begin{figure}
 \centering
