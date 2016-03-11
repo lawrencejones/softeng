@@ -3,6 +3,7 @@ DOCUMENTS := \
 	week_3.pdf \
 	week_4.pdf \
 	week_5.pdf \
+	feedback.pdf \
 	report.pdf
 
 TEX_FILES:=$(shell find . -name "*.tex" -type f)
