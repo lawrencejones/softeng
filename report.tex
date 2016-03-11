@@ -274,14 +274,14 @@ sugar that improves the development experience when interacting with database
 records, the coupling of code to \texttt{ActiveRecord} means unit tests
 implicitly rely upon an active database connection.
 
-Unit tests that hit \texttt{ActiveRecord} have now broken the `repeatable' quality that
-states tests should run in any environment, regardless of configuration. A
-standard practise for writing tests in a Rails environment will make use of gems
-such as \texttt{FactoryGirl}~\cite{factoryGirl} to create mock database records
-before each test run. This practise can be anything but fast, and without due
-care test suite running time can balloon dramatically. Writing tests in this
-fashion sacrifices some speed and resilience of idiomatic unit tests, but gains
-some benefits\dots
+Unit tests that hit \texttt{ActiveRecord} have now broken the `repeatable'
+quality that states tests should run in any environment, regardless of
+configuration. A standard practise for writing tests in a Rails environment will
+make use of gems such as \texttt{FactoryGirl}~\cite{factoryGirl} to create mock
+database records before each test run. This practise can be anything but fast,
+and without due care test suite running time can balloon dramatically. Writing
+tests in this fashion sacrifices some speed and resilience of idiomatic unit
+tests, but gains some benefits\dots
 
 \begin{displayquote}
 
@@ -339,15 +339,9 @@ tolerated. Zach Holman states\dots
 Here, GoCardless clearly opted to write good tests over the faster, more brittle
 kind they felt were an inevitability had they mocked out the database. But Zach
 suggests there is a possibility to push the envelope on how far we can run
-with these tests, and indeed GoCardless have done just that.
-
-There are certain optimisations you can make to unit tests that touch the
-database, especially when the test code reuses key models. PostgreSQL provides
-some hardcore features that allow for tuning a test database for maximal
-performance, and wrapping nested \texttt{context} blocks in \texttt{RSpec} unit
-tests with database transactions allows fixtures to incur a write cost only once
-for each spec file they are used in, immediately reducing the running time
-of database heavy tests.
+with these tests, and indeed GoCardless do just that. By tuning PostgreSQL for
+maximal testing performance, you can immediately reduce the running time of
+database heavy tests.
 
 While useful, these sort of optimisations only have so much mileage. Zach goes
 on to say~\cite{howToDeploySoftware} that test suites should take somewhere in
