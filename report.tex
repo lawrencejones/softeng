@@ -31,22 +31,20 @@
 %   BODY
 %----------------------------------------------------------------------------------------
 
-GoCardless is a FinTech startup based in Angel, London. They provide an API that
-instruments DirectDebit payment networks to pull money between bank accounts,
-and have been doing so since 2011. Their main product is their API, making
-GoCardless a great case study for development practises in modern technological
-start-ups.
+GoCardless, established in 2011, is a FinTech startup based in Angel, London. Their main product, an API that
+instruments DirectDebit payment networks to pull money between bank accounts, makes
+GoCardless a great case study for modern technological practices in start-ups.
 
 In contrast, Amazon is the largest internet retailer in the United States with
-an internationally recognised brand. Launched over two decades ago (1994) Amazon
-stands as one of the greatest successes of the internet age, having weathered
-the dot-com collapse (2000) and outlasted a long list of direct competitors.
-Amazon also happens to support one of the worlds largest micro-service
-architectures after hitting a hard barrier in 2001, when its C++ Obidos monolith
+an internationally recognised brand. Launched in (1994), Amazon
+is a great success, weathering
+the dot-com collapse (2000) and many competitors.
+Amazon also supports one of the largest micro-service
+architectures after hitting a barrier in 2001, when its C++ Obidos monolith
 would take over a weekend to compile.
 
-This article aims to compare how the software development lifecycle (SDLC)
-differs between two companies with disparate operational scales, company history
+This article compares the software development lifecycle (SDLC)
+between two companies with disparate operational scales, company history
 and ethos. Techniques that work well for one company can become severe
 hindrances when scaled, and it will be interesting to see which survive over
 the course of that transformation.
@@ -54,19 +52,17 @@ the course of that transformation.
 \section{Conception}
 
 Developers at GC tackle new features with a `kick off' meeting, consisting of
-the core development team working on the feature and any other essentially
-involved people from around the company. The aim is to discuss the critical (or
+the core development team working on the feature and other essential people, 
+to discuss the critical (or
 happy) path of the feature, describing the experience for the standard user.
-During this process any issues can be raised while the people with domain
+Any issues can be raised while the people with domain
 knowledge are present, allowing the plan to adjust to immediate feedback before
 any real work is done.
 
-Over the next couple of days the team of developers will produce a `scoping
-document' (Figure~\ref{fig:scoping}), detailing their implementation plan
-and capturing the results of research around the feature. This document is
-usually written in some sort of collaborative environment (Google Docs, Dropbox
-Paper, etc.) with a link being shared directly to anyone involved in the
-project, and made available to entire company.
+The team of developers then produces a `scoping
+document' (Figure~\ref{fig:scoping}) (in a collaborative environment (e.g. Google Docs)), 
+detailing their implementation plan, capturing the research around the feature; 
+Directly involved individuals are notified and it is accessible to everyone.
 
 \begin{figure}
 \centering
@@ -75,14 +71,13 @@ project, and made available to entire company.
 free-form content, including collaborative comments}}
 \end{figure}
 
-Working with such visibility enables several operational benefits. Foremost,
-rarely does this process produce solutions that differ wildly from the actual
-requirements. Developers often lack context when they begin work, so having
-others in the company who understand the problem on hand during the design
-process means misunderstandings can be easily corrected early, with minimal
+Working with such visibility enables operational benefits. 
+Foremost, the solutions almost always address actual requirements. 
+Having others, who understand the problem, at hand during the design process 
+means misunderstandings are stemmed early, with minimal
 cost~\cite{costOfChangeEssay}.
 
-Secondly, opening this document to the entire company increases awareness of
+Secondly, opening this document to the company increases awareness of
 what the development team are working on. For non-developers, this translates
 into an understanding of how a large part of the company are spending their
 time, and how that work contributes to the overall company's goal. A key
@@ -97,53 +92,47 @@ troubleshoot this code when problems arise in the future. On top of this, any
 developers who conceive an alternative approach or predict problems with the
 design have a clear forum for discussion.
 
-At Amazon new employees are told it matters little who makes business proposals,
-so long as the proposal is grounded in solid research. The preferred method of
-raising communication between teams are whitepapers, a type of summary document
-written in free-form with effort made for concision. The motivation behind this
-medium is to force the presenter to compact their research into its most
-essential form, producing an easily digestible document that can serve as a base
-for further research in the area.
+At Amazon new employees are told, business proposals must be grounded in solid 
+research; who makes them is irrelevant. Teams communicate preferably through whitepapers, 
+a type of concise free-form summary. This forces the presenter to compact their 
+research into something easily digestible.
 
-Amazon's whitepapers are very similar in content to GoCardless's scoping
-document, and have much the same aim even when a whitepaper lacks the
-collaboration encouraged by online tools. Each aims to be concise and follow a
-top down structure~\cite{reportingAndWriting}, where each subsequent section
-talks at an increasing level of detail. This aids inter-team communication and
-allows at least part of the documents to be readable with varying levels of
-technical expertise, while providing space for highly technical detail if
-required.
+Amazon's whitepapers are similar to GoCardless's scoping
+document, and have the same aim although it lacks the
+collaboration of online tools. They follow a
+top down structure~\cite{reportingAndWriting}, explores the topic 
+at an increasing level of detail. This aids inter-team communication and
+allows at least part of the documents to be readable, while still providing
+technical details.
 
-The effect of considered writing on designing software is profound. The
-requirement of precision in the writing forces the developer to identify
-assumptions behind each stage of the project plan, bringing bad assumptions into
-harsh relief. By walking through each step of the implementation the developer
-naturally questions what each task will consist of, cultivating an awareness
-that leads to an improvement in estimation accuracy and a reduction in surprises
-during the implementation.
+The effect of this is profound. It forces the developer to identify
+assumptions behind each stage of the project plan. 
+By walking through each implementation step the developer
+questions what the task will consist of leading to to an improvement 
+in estimation accuracy and fewer implementation surprises.
 
 The Agile Manifesto~\cite{agileManifesto} states “[We value] working software
-over comprehensive documentation” which has impacted the perceived value of an
-up-front technical document to many modern developers. We argue that a scoping
-document or whitepaper does not constitute “comprehensive” documentation, and
-that the advantages of writing such a document are as relevant now as when Joel
+over comprehensive documentation” diminishing the perceived value of technical 
+documents to many modern developers. A scoping
+document or whitepaper is not constitute “comprehensive” documentation, and
+the advantages of it are as relevant now as when Joel
 Spolsky wrote his article “Painless Functional Specifications - Why Bother?” in
 2000.
 
-Joel argues that technical documents (`specs') can provide a tool to funnel out
-inaccurate assumptions developers may have about the product, before they write
-the inaccurate code. We tackle this problem at the earliest stage, before our
+Joel argues that `specs' aid in funneling out
+inaccurate assumptions developers may have about the product, preventing
+inaccurate code. We tackle this problem at the earliest stage, before our
 software resembles “a compromise between the initial, wrong design and the ideal
 design”. This focus also lends itself to forcing decisions on the hardest
 problems, those which are often put off until the last moment, despite being the
 issues most likely to cause a software project to fail.
 
-Technical documents may be considered by some as heavyweight tools, long since
-replaced in software engineering. We counter that they remain a valuable tool to
-aid developer investigation into a problem, as well as an anchor for inter-team
-communication. That Amazon and GoCardless both use such tools, representing
-fast-moving environments striving for optimal efficiency, suggests that
-technical writing may be less restrictive than it at first seems.
+Technical documents can be considered, heavyweight tools, long since
+replaced in software-engineering. We disagree, they remain valuable,
+aiding investigation into a problem, as well as anchoring inter-team
+communication. Amazon and GoCardless both fast-moving environments, striving 
+for optimal efficiency, both use these tools. Thus technical writing may be less
+ restrictive than it seems.
 
 \section{Testing \& Continuous Delivery}
 
@@ -162,17 +151,15 @@ CodePipeline}}
 While this is the first time tools like this have been offered by Amazon
 commercially, the business has been making use of internal tools for these
 purposes for many years. Amazon's platform is built on top of micro-services;
-visiting an Amazon webpage can invoke up to 150 services for the render. As one
-of the first companies to embrace micro-services, Amazon tackled novel growing
-pains as they built out their architecture from the old monolith.
+upto 150 services are invoked per page render. As one of the first companies 
+to embrace micro-services, Amazon tackled novel growing pains as they built out
+their architecture from the old monolith.
 
-One of the most pressing of these pains was how much developer time was sunk
-into deployments. Now Amazon was split into many services, each team had settled
-on a slightly different deployment strategy. When deployment means
-\texttt{ssh}'ing into a single box, this might not cause too much frustration,
-but Amazon teams were looking to deploy to fleets of hundreds of servers with
-zero-downtime requirements. Lacking a unified tool-chain for deployments meant
-each team would spend a large amount of time re-inventing the wheel, producing a
+The most significant of which was developer time that was sunk into deployments. 
+Each team had a slightly different deployment strategy. Deploying from a single 
+box by \texttt{ssh}'ing is vastly different from deploying to fleets of hundreds 
+of servers with zero-downtime requirements. No unified toolchain for deployments 
+cost each team time, re-inventing the wheel, producing a
 bespoke deployment process for their service. Werner Vogels describes the
 problem\dots
 
@@ -190,20 +177,22 @@ problem\dots
 
 \end{displayquote}
 
-These problems led directly to the creation of Amazon's internal deployment
-platform, Apollo, or as it is now known, CodeDeploy. `The Deployment Production
-Line'~\cite{deploymentProductionLine} states some qualities that a good
-deployment system should demonstrate, and Apollo solved many of these.
+Thus Apollo, or as it is now known, CodeDeploy - Amazon's internal deployment
+platform. Apollo demonstrates many of the qualities of a good dpeloyment system 
+mentioned `The Deployment Production Line'~\cite{deploymentProductionLine}.
 
-The first is automating deployments. One of the biggest advantages Apollo could
-offer was intelligent automated deployment of services, across a fleet of AWS
-servers. Once configured, Apollo could deploy code to any environment, spinning
-up servers to match the application's scaling profile, and configuration changes
-could be made on the fly without taking down the service. This was light-years
-ahead of the custom shell scripts teams had written to deploy their apps, with
-Apollo benefiting from a team working full-time on developing its facilities.
+The first is automating deployments. Apollo offered full, intelligent automated 
+deployment of services, across a fleet of AWS servers. Once configured, Apollo 
+could deploy code to any required environment, spinning up servers to match the 
+application's scaling profile, and configuration changes could be made on the 
+fly without no service downtime.
+This was far beyond the custom shell scripts teams had written. 
+Apollo benefitted from a dedicated team working full time on developing its 
+facilities and integrating the tool into Amazon's infrastructure. 
+This immediately reduced the amount of time developers spent debugging their 
+deployments.
 
-Humble also states that a deployment tool chain must ensure the same artifacts
+Humble states that a deployment tool chain must ensure the same artifacts
 are deployed to every environment. Each service at Amazon depends on hundreds of
 others, and so building against the correct version-set is essential for
 reliability. Amazon solves this problem with another tool, called Brazil, which
@@ -221,10 +210,9 @@ dependency versions.
 
 This method of enforcing good practise on developers is typical of Amazon's
 working environment. Having thousands of developers working on Amazon services
-precludes simply sending a memo about a new development process; at this scale,
-any standard that is not enforced is unenforceable. The power of linking every
-developer into a unified deployment tool (such as Apollo) is that company wide
-standards can be baked into every teams process.
+precludes simply sending a memo about a new development process. 
+The power of linking every developer into a unified deployment tool 
+(such as Apollo) is that company wide standards can be baked into every teams process.
 
 One of the greatest examples of how Amazon use this power is to enforce a best
 practise that almost no one else in the industry has managed to adhere to- unit
@@ -243,24 +231,19 @@ demand this property\dots
 \end{displayquote}
 
 When unit tests need to be run fast, they cannot rely upon calling external
-components that may take many seconds to generate responses. Repeatability is
-also violated when tests depend on external services, as now the test output is
-largely dependent on the presence of that service and on whatever result it may
-return. While the benefits of writing unit tests in isolation are obvious,
-developers typically take this adage as a rule of thumb rather than a hard
-limit.
+components that may take many seconds to generate responses. Dependence on 
+external services violates repeatability - the test output is
+tied to that service its returned vallue. 
 
-Amazon ensures that all unit tests are written in this fashion by locking down
-the boxes that run the unit test pipeline stage. The machines that run unit
-tests have firewalls that block any network attempt out, or back into the host,
-removing the possibility of communicating with a locally hosted database for
-example. Consequently, unit tests for Amazon services typically run in under 10m
-including setup and teardown, without relying on any specialised hardware or
-parallelisation. This minimises the cost per build while preserving rapid
-feedback to developers.
+Amazon ensures that all unit tests are written like this by locking down
+the boxes in the unit test pipeline stage, they have firewalls blocking any 
+network attempt out or in, removing communications with a locally hosted database for
+example. Consequently, they run in under 10m including setup and teardown, 
+without relying on any specialised hardware or parallelisation. This minimises 
+the cost per build while preserving rapid feedback to developers.
 
-GoCardless has a more flexible process, encouraged by the choice of Ruby as the
-company's language. Rails uses a framework called
+GoCardless' process is more flexible, encouraged by Ruby on
+Rails. Rails uses a framework called
 \texttt{ActiveRecord}~\cite{activeRecord} as a database ORM, abstracting away
 from the underlying database to provide an interface that can be called from
 Ruby code. While a key to Rails development, using \texttt{ActiveRecord} means
@@ -325,15 +308,14 @@ tolerated. Zach Holman states\dots
 
 \end{displayquote}
 
-Here, GoCardless clearly opted to write good tests over the faster, more brittle
+Here, GoCardless opted to write good tests over the faster, more brittle
 kind they felt were an inevitability had they mocked out the database. But Zach
-suggests there is a possibility to push the envelope on how far we can run
+says they could to push the envelope on how far we can run
 with these tests, and indeed GoCardless do just that. By tuning PostgreSQL for
 maximal testing performance, you can immediately reduce the running time of
 database heavy tests.
 
-While useful, these sort of optimisations only have so much mileage. Zach goes
-on to say~\cite{howToDeploySoftware} that test suites should take run in the
+While useful, these optimisations only go so far. Zach says ~\cite{howToDeploySoftware} that test suites should take run in the
 range of 5-10m, and throwing more hardware at the problem can be a viable
 solution. The cost of additional infrastructure can be easily justified in the
 time it saves for developers when checking in a new change, and GoCardless
@@ -348,10 +330,9 @@ be seen in Figure~\ref{fig:circle}.
 CircleCI with 5 workers}}
 \end{figure}
 
-One might ask how far this can scale, and for this Stripe provides an excellent
-case study. Built on Rails, just as GoCardless, Stripe have achieved three
-minute build times from the natural conclusion of this parallelisation, by
-creating their own test runner framework that \texttt{fork}s extensively on a
+Stripe is an excellent case study on how this scales. Built on Rails, 
+just as GoCardless, Stripe have achieved three minute build times from 
+this parallelisation, by creating a test runner framework that \texttt{fork}s extensively on a
 high powered Amazon EC instance. Stripe's Nelson Elhage says\dots
 
 \begin{displayquote}
@@ -368,7 +349,7 @@ high powered Amazon EC instance. Stripe's Nelson Elhage says\dots
 
 \end{displayquote}
 
-Clearly Stripe figured out how to make their `good tests' run fast, and have
+Stripe figured out how to make their `good tests' run fast, and have
 confidence they will continue to do so in future.
 
 \[*\]
@@ -376,15 +357,13 @@ confidence they will continue to do so in future.
 The comparison of Amazon and GoCardless testing ethos highlights some major
 differences in organisational structure. Amazon with their many services cannot
 afford to special case each team, nor as their Frugality principle suggests,
-would they want to. GoCardless as a start-up has much more flexibility in this
-regard, and can manage each project on its own basis. Indeed, specifying a
-general rule for everyone when your company is only four years old is probably
-an unwise move.
+would they want to. GoCardless as a start-up has more flexibility, and can 
+manage each project on its own basis. Indeed, specifying a general rule for 
+everyone when your company is only four years old is probably an unwise move.
 
 Regardless of their differences in size and technical ethos, Amazon and
-GoCardless both exhibit key qualities of highly effective companies. Both strive
-for pragmatism in their development practises, and favour a highly technical
-dialogue that works hard to include non-technical staff in the discussion.
+GoCardless both strive for pragmatism in their development practises, and highly 
+technical dialogue that works hard to include non-technical staff in the discussion.
 
 Each follow Agile principles, but do so on their own terms. It's highly unusual
 to find either adopting a procedure that they haven't questioned the value of
